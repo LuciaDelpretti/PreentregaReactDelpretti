@@ -1,15 +1,15 @@
-# Configuración de build
+
 [build]
   base = "preentrega"
   command = "npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
-  # Variables de entorno para el build
+
   [build.environment]
     NODE_VERSION = "18"
 
-# Redirección para Single Page App (React, Vue, etc.)
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
