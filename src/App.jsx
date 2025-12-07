@@ -10,6 +10,7 @@ import Carrito from "./components/Carrito";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminProducts from "./pages/AdminProducts";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/products" element={<ProductsList />} />
         <Route path="/producto/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
+  <Route path="/admin" element={<ProtectedRoute><AdminProducts /></ProtectedRoute>} />
         <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
