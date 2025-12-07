@@ -61,6 +61,13 @@ function Navbar() {
               Productos
             </Link>
           </li>
+          {user && (
+            <li className="nav-item">
+              <Link className="nav-link" to="/admin">
+                Admin
+              </Link>
+            </li>
+          )}
           <li className="nav-item">
             {user ? (
               <button className="btn btn-outline-light ms-2" onClick={logout}>

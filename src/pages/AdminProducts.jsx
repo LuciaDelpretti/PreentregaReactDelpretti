@@ -10,6 +10,8 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -41,15 +43,22 @@ export default function AdminProducts() {
     setShowForm(false);
   };
 
-  const handleDelete = async (id) => {
-    const ok = window.confirm("¿Confirmas eliminar este producto?");
-    if (!ok) return;
+  const promptDelete = (prod) => {
+    setDeleteTarget(prod);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      await api.deleteProduct(id);
-      setProducts((p) => p.filter((it) => String(it.id) !== String(id)));
+      await api.deleteProduct(deleteTarget.id);
+      setProducts((p) => p.filter((it) => String(it.id) !== String(deleteTarget.id)));
       toast.success("Producto eliminado");
     } catch (err) {
       toast.error(err.message || "Error eliminando");
+    } finally {
+      setShowDeleteModal(false);
+      setDeleteTarget(null);
     }
   };
 
@@ -94,7 +103,7 @@ export default function AdminProducts() {
                     <button className="btn btn-primary btn-sm" onClick={() => { setEditing(prod); setShowForm(true); }}>
                       Editar
                     </button>
-                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(prod.id)}>
+                    <button className="btn btn-danger btn-sm" onClick={() => promptDelete(prod)}>
                       Eliminar
                     </button>
                   </div>
@@ -104,6 +113,24 @@ export default function AdminProducts() {
           ))}
         </div>
       )}
+      {/* Delete confirmation modal (Bootstrap-like) */}
+      <div className={"modal fade" + (showDeleteModal ? " show d-block" : "")} tabIndex="-1" role="dialog" aria-hidden={!showDeleteModal}>
+        <div className="modal-dialog" role="document">
+          <div className="modal-content bg-dark text-white">
+            <div className="modal-header">
+              <h5 className="modal-title">Confirmar eliminación</h5>
+              <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={() => { setShowDeleteModal(false); setDeleteTarget(null); }}></button>
+            </div>
+            <div className="modal-body">
+              <p>¿Estás seguro que deseas eliminar <strong>{deleteTarget?.title}</strong>?</p>
+            </div>
+            <div className="modal-footer">
+              <button className="btn btn-secondary" onClick={() => { setShowDeleteModal(false); setDeleteTarget(null); }}>Cancelar</button>
+              <button className="btn btn-danger" onClick={confirmDelete}>Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
