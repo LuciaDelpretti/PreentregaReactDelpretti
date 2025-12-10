@@ -62,16 +62,13 @@ API y producción
 
 En desarrollo la app usa `http://localhost:4000` si no configuras variables. En producción debes configurar la variable de entorno Vite:
 
-- `VITE_API_URL` — URL base del API (ej.: `https://mi-mockapi.mockapi.io`)
+`VITE_API_URL` — URL base del API (ej.: `https://mi-mockapi.mockapi.io`)
 
-Si vas a desplegar en Vercel, añade `VITE_API_URL` en las Environment Variables del proyecto en Vercel.
+Deployment (genérico)
 
-Notas sobre deployment en Vercel
-
-1. Conecta el repositorio a Vercel y selecciona la rama que quieras desplegar (recomendado: `feature/final-delivery` para revisar cambios antes de mezclar a `main`).
-2. Build command: `npm run build`
-3. Output directory: `dist`
-4. Añade la variable de entorno `VITE_API_URL` (Preview & Production) apuntando a un backend público (por ejemplo mockapi.io o tu backend desplegado). Si no pones esta variable, la app intentará `http://localhost:4000` y no podrá obtener datos en producción.
+- Build command: `npm run build`
+- Output directory: `dist`
+- Añade la variable de entorno `VITE_API_URL` en el proveedor de despliegue que elijas (Netlify, Render, Railway, etc.).
 
 Alternativas para API en producción
 - Usar https://mockapi.io/ — crea una collection `products` y copia la base URL (por ejemplo `https://63xxxx.mockapi.io`) en `VITE_API_URL`.
@@ -96,8 +93,7 @@ Branch de trabajo
 Contacto
 
 Si quieres, puedo:
-- Generar los pasos para crear la colección en mockapi.io y ayudarte a configurar `VITE_API_URL` en Vercel.
-- Añadir `vercel.json` con redirects/headers si lo necesitas.
+- Generar los pasos para crear la colección en mockapi.io y ayudarte a configurar `VITE_API_URL` en el proveedor de despliegue que elijas.
 
 ---
 Archivo generado automáticamente por el flujo de entrega. Si quieres que incluya capturas, badges o instrucciones extra (CI, tests), dime cuáles.
