@@ -2,9 +2,9 @@
 [build]
   command = "npm run build"
   publish = "dist"
-
+a
   [build.environment]
-    NODE_VERSION = "22.14.0"
+    NODE_VERSION = "20"
 
 # Redirección importante para React Router
 [[redirects]]
