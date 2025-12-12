@@ -1,0 +1,5 @@
+name: Removed Vercel workflow
+
+# This workflow was removed because the project no longer uses Vercel for deployments.
+# Keeping an empty/placeholder file avoids accidental re-adds; you can delete this file
+# entirely if you prefer.

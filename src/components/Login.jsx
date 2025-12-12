@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
@@ -7,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useContext(AuthContext);
 
   const handleLogin = (e) => {
@@ -17,7 +18,8 @@ const Login = () => {
 
     if (user.trim() === validUser && password === validPass) {
       login(user.trim());
-      navigate("/");
+      const dest = location.state?.from?.pathname || "/";
+      navigate(dest, { replace: true });
     } else {
 
       setShowError(true);
