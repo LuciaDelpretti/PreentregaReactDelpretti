@@ -1,10 +1,10 @@
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 
 const jsonHeaders = { "Content-Type": "application/json" };
 
 export async function getProducts() {
   const res = await fetch(`${API_BASE}/products`);
-  if (!res.ok) throw new Error("Error fetching products");
+  if (!res.ok) throw new Error("Error al cargar productos");
   return res.json();
 }
 
@@ -20,7 +20,8 @@ export async function createProduct(payload) {
     headers: jsonHeaders,
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error("Error creating product");
+
+  if (!res.ok) throw new Error("Error al crear producto");
   return res.json();
 }
 
@@ -30,14 +31,18 @@ export async function updateProduct(id, payload) {
     headers: jsonHeaders,
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error("Error updating product");
+
+  if (!res.ok) throw new Error("Error al actualizar producto");
   return res.json();
 }
 
 export async function deleteProduct(id) {
-  const res = await fetch(`${API_BASE}/products/${id}`, { method: "DELETE" });
-  if (!res.ok) throw new Error("Error deleting product");
-  return true;
+  const res = await fetch(`${API_BASE}/products/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) throw new Error("Error al eliminar producto");
+  return res.json();
 }
 
 export default {
